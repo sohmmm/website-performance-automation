@@ -10,11 +10,11 @@ class PageSpeedInsights:
         self.base_url = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed'
         self.api_key = api_key
 
-    def get_report(self, test_url, strategy='desktop', category=['performance', 'accessibility', 'best-practices', 'seo']):
+    def get_report(self, test_url, device='desktop', category=['performance', 'accessibility', 'best-practices', 'seo']):
         params = {
             'key': self.api_key,
             'url': test_url,
-           'strategy': strategy,
+           'strategy': device,
             'category': category,
         }
 
@@ -45,7 +45,7 @@ class PageSpeedInsights:
         return filtered_data
     
 
-def run_lighthouse(test_url, device='desktop', headless=False, timeout=120):
+def run_lighthouse(test_url, device='desktop', headless=False, timeout=360):
     cmd = [
         'lighthouse', test_url,
         '--output', 'json',
@@ -66,8 +66,5 @@ def run_lighthouse(test_url, device='desktop', headless=False, timeout=120):
         text=True
     )
 
-    print(result.stderr)
-
     return result.returncode
-
     
